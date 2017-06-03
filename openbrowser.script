@@ -1,0 +1,22 @@
+set urls to {"http://www.nicovideo.jp/","http://www.kame.net"}
+set countOfUrls to count urls
+
+tell application "Safari"
+    activate
+
+    tell application "System Events"
+         tell process "Safari"
+             keystroke "N" using {shift down, command down}
+         end tell
+    end tell
+
+    tell window 1
+        set firstTab to current tab
+        repeat with i from 1 to countOfUrls
+            set URL of document 1 to (item i of urls)
+            if i = countOfUrls then exit repeat
+            set current tab to (make new tab)
+        end repeat
+        set current tab to firstTab
+    end tell
+end tell
